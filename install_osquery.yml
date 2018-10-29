@@ -1,0 +1,11 @@
+---
+- name: Install Chocolatey
+  hosts: windows
+ 
+  tasks:
+    - name: ensure Chocolatey itself is installed and use internal repo as source
+      win_chocolatey:
+        name: chocolatey
+    - name: Install OSQuery
+      win_chocolatey:
+        name: osquery
