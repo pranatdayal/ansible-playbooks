@@ -1,0 +1,33 @@
+---
+  - hosts: ubuntu 
+    tasks:
+      - name: Get list of installed packages  
+        shell: echo "select name as 'Installed packages' from deb_packages;" | osqueryi
+        register: lsoftware_result 
+
+      - name: Get startup services  
+        shell: echo 'Startup services' && service --status-all
+        register: startup_services
+
+      - debug: var=lsoftware_result.stdout_lines
+      - debug: var=startup_services.stdout_lines 
+
+  - hosts: windows 
+    tasks: 
+      - name: Get list of installed software 
+        win_shell: echo Select name as 'Installed software' from programs union select name from chocolatey_packages; | osqueryi
+        args: 
+          executable: cmd 
+        register: wsoftware_result 
+
+      - name: Get startup items 
+        win_shell: echo select name as 'Service' ,status,username,path from startup_items; | osqueryi
+        args: 
+          executable: cmd
+        register: wstartup_result 
+
+
+
+      - debug: var=wsoftware_result.stdout_lines 
+      - debug: var=wstartup_result.stdout_lines       
+
