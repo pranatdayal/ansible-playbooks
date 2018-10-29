@@ -3,9 +3,11 @@
 
 - hosts: windows
 	
-	tasks:
+  tasks:
 
 
 - hosts: ubuntu
 
-	tasks:
+  tasks:
+    - name: Recent Login's
+      shell: last -s yesterday
