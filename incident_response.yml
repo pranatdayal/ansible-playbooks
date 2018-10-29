@@ -11,3 +11,8 @@
   tasks:
     - name: Recent Login's
       shell: last -s yesterday
+    
+    - name: Process Information
+      shell: ps -eo pid,command,uid,ppid,fname,pmem,etime
+      #Must look further into time, especially for user vs kernel runtime
+    
