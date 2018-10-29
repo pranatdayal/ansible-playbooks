@@ -3,9 +3,12 @@
   hosts: windows
  
   tasks:
-    - name: ensure Chocolatey itself is installed and use internal repo as source
+    - name: Verify Chocolatey Installation
       win_chocolatey:
         name: chocolatey
     - name: Install OSQuery
       win_chocolatey:
         name: osquery
+        install_args: --params='/InstallService'
+    - name: Enable OSQuery Log Support
+      win_command: wevtutil im C:\ProgramData\osquery\osquery.man
