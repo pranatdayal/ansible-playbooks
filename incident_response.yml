@@ -16,3 +16,5 @@
       shell: ps -eo pid,command,uid,ppid,fname,pmem,etime
       #Must look further into time, especially for user vs kernel runtime
     
+    - name: Suspicious Connections
+      shell: ss -tup | grep -v :80 | grep -v :443
