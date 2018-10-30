@@ -2,14 +2,14 @@
 # - name: Incedent Response Info
 
 - hosts: windows
-	
+  
   tasks:
 
 
 - hosts: ubuntu
 
   tasks:
-  	
+  
     - name: Logged in Users
       shell:  echo "SELECT * from logged_in_users" | osqueryi
       #List the currently logged in users on the box
