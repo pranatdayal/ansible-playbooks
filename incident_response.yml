@@ -24,4 +24,5 @@
       #Working osquery command to select PID|NAME||UID|PPID|PATH|Bin on Disk|MemUsage|UserTime|Kernel_Time
     
     - name: Suspicious Connections
-      shell: ss -tup | grep -v :80 | grep -v :443
+      shell: osqueryi "SELECT remote_address,protocol,remote_port from process_open_sockets where remote_port not in (0,80,443)"
+      #Osquery command to select info about remote connections excluding ports 443 and 80.
