@@ -5,25 +5,25 @@
   
   tasks:
    - name: Get Login's
-     win_shell: echo SELECT * from logged_in_users | osqueryi
+     win_shell: echo SELECT * from logged_in_users; | osqueryi
      args:
        executable: cmd
      register: winloggins
        
    - name: Logon Sessions
-     win_shell: echo SELECT * from logon_sessions limit 100 | osqueryi
+     win_shell: echo SELECT * from logon_sessions limit 100; | osqueryi
      args:
        executable: cmd
      register: winsessions
    
    - name: Process Info
-     win_shell: echo SELECT pid,name,uid,parent,path,on_disk,total_size,user_time,system_time FROM processes | osqueryi
+     win_shell: echo SELECT pid,name,uid,parent,path,on_disk,total_size,user_time,system_time FROM processes; | osqueryi
      args:
        executable: cmd
      register: winprocs
 
    - name: Suspicious Connections
-     win_shell: echo SELECT remote_address,protocol,remote_port from process_open_sockets where remote_port not in (0,80,443) | osqueryi
+     win_shell: echo SELECT remote_address,protocol,remote_port from process_open_sockets where remote_port not in (0,80,443); | osqueryi
      args:
        executable: cmd
      register: wincons
@@ -38,20 +38,20 @@
   tasks:
   
     - name: Logged in Users
-      shell:  echo "SELECT * from logged_in_users" | osqueryi
+      shell:  echo "SELECT * from logged_in_users;" | osqueryi
       #List the currently logged in users on the box
       register: loggedin
   
     - name: Recent Login's
-      shell: echo "SELECT * from LAST limit 100" | osqueryi 
+      shell: echo "SELECT * from LAST limit 100;" | osqueryi 
       register: lasts
      
     - name: Process Information
-      shell: echo "SELECT pid,name,uid,parent,path,on_disk,total_size,user_time,system_time FROM processes" | osqueryi 
+      shell: echo "SELECT pid,name,uid,parent,path,on_disk,total_size,user_time,system_time FROM processes;" | osqueryi 
       register: procs
     
     - name: Suspicious Connections
-      shell: echo "SELECT remote_address,protocol,remote_port from process_open_sockets where remote_port not in (0,80,443)" | osqueryi
+      shell: echo "SELECT remote_address,protocol,remote_port from process_open_sockets where remote_port not in (0,80,443);" | osqueryi
       register: cons
     
     - debug: var=loggedin.stdout_lines
